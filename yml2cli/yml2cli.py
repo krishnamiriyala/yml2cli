@@ -47,15 +47,23 @@ def main():
                 params[key] = val
 
     for key, value in params.items():
+        if value is None or value is False:
+            continue
         cli_params += " "
         if len(key) == 1:
-            cli_params += f"-{key}"
+            param = f"-{key} "
         else:
-            cli_params += f"--{key}"
+            param = f"--{key} "
+        if value is True:
+            continue
         if isinstance(value, list):
-            cli_params += " ".join([f"\"{val}\"" for val in value])
+            param += " ".join([f"\"{val}\"" if isinstance(val,
+                              str) else f"{val}" for val in value])
+        elif isinstance(value, str):
+            param += f"\"{value}\""
         else:
-            cli_params += f"{value}"
+            param += f"{value}"
+        cli_params += param
     print(cli_params)
 
 

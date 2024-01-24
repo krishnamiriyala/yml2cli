@@ -1,0 +1,13 @@
+---
+b:
+    - 1
+    - 2
+c: foo
+d: foo bar
+e: null
+f: true
+g: false
+h:
+    - foo
+    - bar
+    - baz
