@@ -26,11 +26,17 @@ import yaml
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Yaml to cli parames converter',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        description="Yaml to cli params converter",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     parser.add_argument(
-        '-i', '--input-files', action='extend', nargs='+', default=[],
-        help='Yaml configuration files in order of overrides')
+        "-i",
+        "--input-files",
+        action="extend",
+        nargs="+",
+        default=[],
+        help="Yaml configuration files in order of overrides",
+    )
     args = parser.parse_args()
     return args
 
@@ -41,7 +47,7 @@ def main():
     cli_params = ""
 
     for input_file in args.input_files:
-        with open(input_file, encoding='UTF-8') as filep:
+        with open(input_file, encoding="UTF-8") as filep:
             data = yaml.safe_load(filep)
             for key, val in data.items():
                 params[key] = val
@@ -57,15 +63,16 @@ def main():
         if value is True:
             continue
         if isinstance(value, list):
-            param += " ".join([f"\"{val}\"" if isinstance(val,
-                              str) else f"{val}" for val in value])
+            param += " ".join(
+                [f'"{val}"' if isinstance(val, str) else f"{val}" for val in value]
+            )
         elif isinstance(value, str):
-            param += f"\"{value}\""
+            param += f'"{value}"'
         else:
             param += f"{value}"
         cli_params += param
     print(cli_params)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -13,7 +13,7 @@ reinstall: uninstall clean install
 
 install_tools:
 	python3 -m pip install --upgrade pip
-	pip3 install build pycodestyle pyflakes pylint twine
+	pip3 install black build pycodestyle pyflakes pylint twine yamllint
 	pip3 install -r requirements.txt
 
 install: clean build
@@ -33,6 +33,7 @@ lint:
 
 lint_fix:
 	autopep8 -i ${PROJECT}/*.py
+	black ${PROJECT}/*.py
 
 clean:
 	rm -rf VERSION ./dist ./*egg-info*
